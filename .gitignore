@@ -1,18 +1,358 @@
-# Build and Release Folders
-bin-debug/
-bin-release/
-[Oo]bj/
-[Bb]in/
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>BioMaster Pro | Толық жұмыс дәптері + Кестелер + Венн диаграммалары</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #f0f7ed; color: #1a3c2a; line-height: 1.5; }
+        .header { background: linear-gradient(135deg, #0d5c2a, #063818); color: white; padding: 1.8rem 2rem; text-align: center; }
+        .header h1 { font-size: 2rem; margin-bottom: 0.3rem; }
+        .header h1 i { margin-right: 12px; color: #ffd966; }
+        .subtitle { opacity: 0.9; font-size: 0.95rem; }
+        .nav-bar { background: #1a6b2f; display: flex; justify-content: center; flex-wrap: wrap; gap: 0.5rem; padding: 0.8rem 1rem; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .nav-btn { background: #135a26; border: none; color: white; padding: 0.6rem 1.3rem; border-radius: 40px; font-weight: 600; cursor: pointer; transition: 0.2s; font-size: 0.9rem; }
+        .nav-btn i { margin-right: 6px; }
+        .nav-btn:hover, .nav-btn.active { background: #ffd966; color: #1a4d2a; transform: translateY(-2px); }
+        .container { max-width: 1400px; margin: 2rem auto; padding: 0 1.5rem; }
+        .page { display: none; animation: fadeIn 0.3s ease; }
+        .active-page { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px);} to { opacity: 1; transform: translateY(0);} }
+        .topic-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; margin: 1.5rem 0; }
+        .topic-card { background: white; border-radius: 24px; padding: 1.3rem; cursor: pointer; transition: all 0.25s; box-shadow: 0 6px 14px rgba(0,0,0,0.05); border-left: 5px solid #3e8e41; }
+        .topic-card:hover { transform: translateY(-4px); box-shadow: 0 14px 28px rgba(0,0,0,0.1); background: #fefef7; }
+        .topic-card h3 { color: #1f552c; margin-bottom: 0.5rem; }
+        .work-area { background: white; border-radius: 32px; padding: 2rem; margin: 2rem 0; box-shadow: 0 8px 24px rgba(0,0,0,0.05); }
+        .virtual-lab { background: #e8f0e5; border-radius: 20px; padding: 1rem; margin: 1rem 0; border-left: 4px solid #ffa000; }
+        .virtual-lab a { color: #1a6b2f; text-decoration: none; font-weight: 600; }
+        .task-list { list-style: none; padding: 0; }
+        .task-list li { background: #f9faf5; margin: 0.8rem 0; padding: 1rem; border-radius: 18px; border: 1px solid #ddebd0; }
+        .notebook { background: #fffef7; border-radius: 28px; padding: 1.5rem; margin-top: 2rem; border: 1px solid #d4e2c8; }
+        .notebook textarea { width: 100%; min-height: 250px; padding: 1rem; border-radius: 20px; border: 1px solid #c0dbb5; font-family: inherit; font-size: 0.95rem; }
+        .save-btn { background: #2e7d32; border: none; color: white; padding: 0.7rem 1.8rem; border-radius: 40px; font-weight: bold; cursor: pointer; margin-top: 1rem; margin-right: 1rem; }
+        .save-btn.secondary { background: #ffa000; }
+        .save-btn.danger { background: #c62828; }
+        .edu-table { width: 100%; border-collapse: collapse; background: white; border-radius: 20px; overflow: hidden; margin: 1rem 0; }
+        .edu-table th, .edu-table td { border: 1px solid #cfe2cf; padding: 10px 12px; text-align: left; vertical-align: top; }
+        .edu-table th { background: #e2f0df; color: #1b4d2b; }
+        .venn-box { display: flex; justify-content: space-between; gap: 1rem; margin: 1rem 0; flex-wrap: wrap; }
+        .venn-col { flex: 1; background: #f5faf2; padding: 1rem; border-radius: 20px; min-width: 180px; }
+        .venn-col h4 { text-align: center; margin-bottom: 0.8rem; color: #2e7d32; }
+        .venn-col textarea { width: 100%; min-height: 120px; background: white; border-radius: 16px; border: 1px solid #c8e6c9; padding: 0.8rem; font-family: inherit; }
+        .back-btn { background: #ccc; color: #1a3c2a; border: none; padding: 0.5rem 1.2rem; border-radius: 30px; cursor: pointer; margin-bottom: 1rem; }
+        footer { background: #1a3c2c; color: #cfe2cf; text-align: center; padding: 2rem; margin-top: 3rem; }
+        @media (max-width: 700px) { .container { padding: 0 1rem; } .topic-grid { grid-template-columns: 1fr; } .venn-box { flex-direction: column; } }
+    </style>
+</head>
+<body>
+<div class="header">
+    <h1><i class="fas fa-dna"></i> BioMaster Pro | Толық жұмыс дәптері</h1>
+    <div class="subtitle">10-сынып биология | Практикалық жұмыстар + Кестелер + Венн диаграммалары</div>
+    <div class="subtitle">Кіребай Жәния Бахытжанқызы, Қорқыт Ата атындағы Қызылорда университеті, 2026</div>
+</div>
 
-# Other files and folders
-.settings/
+<div class="nav-bar">
+    <button class="nav-btn active" data-page="dashboard"><i class="fas fa-grid"></i> Тақырыптар</button>
+    <button class="nav-btn" data-page="notebook"><i class="fas fa-book-open"></i> Барлық жауаптар</button>
+    <button class="nav-btn" data-page="rubric"><i class="fas fa-clipboard-list"></i> Бағалау рубрикасы</button>
+    <button class="nav-btn" data-page="resources"><i class="fas fa-link"></i> Виртуалды зертханалар</button>
+</div>
 
-# Executables
-*.swf
-*.air
-*.ipa
-*.apk
+<div class="container">
+    <div id="dashboard" class="page active-page">
+        <h2><i class="fas fa-leaf"></i> 10-сынып. Практикалық сабақтар (3-4 тоқсан)</h2>
+        <div class="topic-grid" id="topicsGrid"></div>
+    </div>
 
-# Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
-# should NOT be excluded as they contain compiler settings and other important
-# information for Eclipse / Flash Builder.
+    <div id="topicWorkArea" class="work-area" style="display: none;">
+        <button id="backBtn" class="back-btn"><i class="fas fa-arrow-left"></i> Барлық тақырыптар</button>
+        <div id="topicContent"></div>
+        <div class="notebook">
+            <h3><i class="fas fa-pen-fancy"></i> 📓 Жұмыс дәптері (жалпы ескертулер)</h3>
+            <textarea id="notebookText" placeholder="Тапсырмалардың жауаптарын, зертханалық жұмыс нәтижелерін, есептердің шығарылуын, қорытындыларыңызды осы жерге жазыңыз..."></textarea>
+            <div>
+                <button id="saveTopicNotes" class="save-btn"><i class="fas fa-save"></i> Сақтау</button>
+                <button id="loadTopicNotes" class="save-btn secondary"><i class="fas fa-folder-open"></i> Жүктеу</button>
+                <button id="clearTopicNotes" class="save-btn danger"><i class="fas fa-trash"></i> Тазалау</button>
+            </div>
+            <div id="saveStatus" style="margin-top: 10px;"></div>
+        </div>
+    </div>
+
+    <div id="notebook" class="page">
+        <h2><i class="fas fa-book"></i> 📚 Барлық сақталған жауаптар</h2>
+        <div id="allNotesContainer" style="background: white; border-radius: 28px; padding: 1.5rem;"></div>
+        <button id="exportAllNotes" class="save-btn"><i class="fas fa-download"></i> Жүктеп алу (.txt)</button>
+        <button id="clearAllNotes" class="save-btn danger">Барлығын өшіру</button>
+    </div>
+
+    <div id="rubric" class="page">
+        <h2>📊 Бағалау рубрикасы (Кесте 3)</h2>
+        <table class="edu-table"><thead><tr><th>Критерий</th><th>Жоғары деңгей</th><th>Орташа деңгей</th><th>Төмен деңгей</th></tr></thead>
+        <tbody><tr><td>Жабдықты қолдану</td><td>Дұрыс, дербес</td><td>Көмекпен</td><td>Алмайды</td></tr>
+        <tr><td>Деректерді тіркеу</td><td>Толық кесте/график</td><td>Жартылай</td><td>Қате</td></tr>
+        <tr><td>Нәтижені талдау</td><td>Теориямен байланыс, қорытынды</td><td>Жекелей байланыс</td><td>Байланыс жоқ</td></tr>
+        <tr><td>Рефлексия</td><td>Сыни бағалайды</td><td>Ішінара</td><td>Бағаламайды</td></tr>
+        </tbody></table>
+    </div>
+
+    <div id="resources" class="page">
+        <h2>🔗 Виртуалды зертханалар</h2>
+        <div class="topic-grid" id="resourcesGrid"></div>
+    </div>
+</div>
+
+<footer>
+    <p>Кіребай Жәния Бахытжанқызы | Қорқыт Ата атындағы Қызылорда университеті | Дипломдық жұмыс</p>
+</footer>
+
+<script>
+    const topics = [
+        { id:0, name:"Онкологиялық өспелер", code:"10.2.2.2", lab:"<a href='https://www.labster.com/simulations/mass-spectrometry' target='_blank'>Labster Cancer</a> | <a href='https://learn.genetics.utah.edu/' target='_blank'>Learn.Genetics p53</a>",
+          content:`
+            <h3>👥 Жұптық жұмыс (7 мин)</h3>
+            <p><strong>1. Канцерогенді әсер ететін 3 фактор:</strong><br><textarea class='task-answer' data-field='cancer_factors' rows='2' style='width:100%; border-radius:12px; border:1px solid #c8e6c9; padding:8px;'></textarea></p>
+            <div class='venn-box'><div class='venn-col'><h4>Қатерлі өспе</h4><textarea class='task-answer' data-field='cancer_malignant' rows='4' placeholder='...'></textarea></div>
+            <div class='venn-col'><h4>Ортақ белгілер</h4><textarea class='task-answer' data-field='cancer_common' rows='4' placeholder='...'></textarea></div>
+            <div class='venn-col'><h4>Қатерсіз өспе</h4><textarea class='task-answer' data-field='cancer_benign' rows='4' placeholder='...'></textarea></div></div>
+            <h3>👤 Жеке жұмыс: Сәйкестендіру</h3>
+            <textarea class='task-answer' data-field='cancer_match' rows='6' placeholder='Канцероген – Өкпе обыры себебі...' style='width:100%; border-radius:12px; border:1px solid #c8e6c9; padding:8px;'></textarea>
+          ` },
+        { id:1, name:"Қартаю теориялары", code:"10.2.2.3", lab:"<a href='https://www.biointeractive.org/classroom-resources/alzheimers-disease-piecing-together-evidence' target='_blank'>HHMI Aging</a>",
+          content:`
+            <h3>👥 Жұптық жұмыс</h3>
+            <p><strong>Қартаюды баяулатуға 3 ұсыныс:</strong><br><textarea class='task-answer' data-field='aging_tips' rows='3' style='width:100%; border-radius:12px; border:1px solid #c8e6c9; padding:8px;'></textarea></p>
+            <div class='venn-box'><div class='venn-col'><h4>Эволюциялық теория</h4><textarea class='task-answer' data-field='aging_evol' rows='4'></textarea></div>
+            <div class='venn-col'><h4>Ортақ</h4><textarea class='task-answer' data-field='aging_common' rows='4'></textarea></div>
+            <div class='venn-col'><h4>Иммунологиялық</h4><textarea class='task-answer' data-field='aging_immun' rows='4'></textarea></div></div>
+            <p><strong>Генетикалық теорияны талдау:</strong><br><textarea class='task-answer' data-field='aging_genetic' rows='4' style='width:100%;'></textarea></p>
+          ` },
+        { id:2, name:"Модификациялық өзгергіштік", code:"10.2.4.1", lab:"<a href='https://phet.colorado.edu/sims/html/natural-selection/latest/natural-selection_all.html' target='_blank'>PhET Natural Selection</a>",
+          content:`
+            <h3>Дұрыс/Бұрыс</h3>
+            <textarea class='task-answer' data-field='mod_truefalse' rows='5' placeholder='1. Модификация генотипке байланысты? ...' style='width:100%;'></textarea>
+            <div class='venn-box'><div class='venn-col'><h4>Мутациялық</h4><textarea class='task-answer' data-field='mut_venn' rows='4'></textarea></div>
+            <div class='venn-col'><h4>Ортақ</h4><textarea class='task-answer' data-field='mod_common' rows='4'></textarea></div>
+            <div class='venn-col'><h4>Модификациялық</h4><textarea class='task-answer' data-field='mod_venn' rows='4'></textarea></div></div>
+            <p><strong>Модификациялық өзгергіштікке анықтама және 2 мысал:</strong><br><textarea class='task-answer' data-field='mod_def' rows='3' style='width:100%;'></textarea></p>
+            <h3>🔬 №5 Зертханалық жұмыс: Вариациялық қатар мен қисық</h3>
+            <table class='edu-table'><tr><th>Жапырақ №</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th></tr>
+            <tr><td>Өлшемі (см)</td>${'<td><input type="text" class="size-input" data-idx=""></td>'.repeat(10)}</tr></table>
+            <textarea class='task-answer' data-field='variation_conclusion' rows='4' placeholder='Қорытынды: даралардың басым көпшілігі қандай өлшемде? Неге график қоңыр пішінді?' style='width:100%;'></textarea>
+          ` },
+        { id:3, name:"Аллельді және аллельді емес гендер", code:"10.2.4.3", lab:"<a href='https://www.biointeractive.org/classroom-resources/meiosis' target='_blank'>HHMI Meiosis</a>",
+          content:`
+            <p><strong>Аллельді гендерге анықтама:</strong><br><textarea class='task-answer' data-field='allel_def' rows='2' style='width:100%;'></textarea></p>
+            <p><strong>Аллельді емес гендер түрлері (комплементарлық, эпистаз, полимерия):</strong><br><textarea class='task-answer' data-field='nonallel_types' rows='5' style='width:100%;'></textarea></p>
+            <p><strong>Полимерия есебі (бидай дән түсі):</strong><br><textarea class='task-answer' data-field='poly_problem' rows='3' style='width:100%;'></textarea></p>
+          ` },
+        { id:4, name:"Мутациялар және хромосомдық аурулар", code:"10.2.4.4", lab:"<a href='https://learn.genetics.utah.edu/content/basics/karyotype/' target='_blank'>Виртуалды кариотиптеу</a>",
+          content:`
+            <p><strong>Мутацияға анықтама, 1 себебі:</strong><br><textarea class='task-answer' data-field='mut_def' rows='2'></textarea></p>
+            <table class='edu-table'><tr><th>Гендік мутация</th><th>Хромосомалық мутация</th><th>Геномдық мутация</th></tr>
+            <tr><td><textarea class='task-answer' data-field='mut_gene' rows='3'></textarea></td>
+            <td><textarea class='task-answer' data-field='mut_chrom' rows='3'></textarea></td>
+            <td><textarea class='task-answer' data-field='mut_genom' rows='3'></textarea></td></tr></table>
+            <p><strong>Сәйкестендіру және дұрыс/бұрыс:</strong><br><textarea class='task-answer' data-field='mut_match' rows='4' style='width:100%;'></textarea></p>
+          ` },
+        { id:5, name:"Кладограмма және филогенетика", code:"10.1.1.1", lab:"",
+          content:`<div class='venn-box'><div class='venn-col'><h4>Кладограмма</h4><textarea class='task-answer' data-field='clado_left' rows='4'></textarea></div>
+          <div class='venn-col'><h4>Ортақ</h4><textarea class='task-answer' data-field='clado_common' rows='4'></textarea></div>
+          <div class='venn-col'><h4>Филогенетикалық шежіре</h4><textarea class='task-answer' data-field='clado_right' rows='4'></textarea></div></div>
+          <p><strong>Ортақ ататек анықтамасы және дұрыс/бұрыс:</strong><br><textarea class='task-answer' data-field='clado_text' rows='4'></textarea></p>` },
+        { id:6, name:"Антропогенез кезеңдері", code:"10.2.6.3", lab:"<a href='https://3d.si.edu/explore' target='_blank'>Smithsonian 3D</a>",
+          content:`<table class='edu-table'><tr><th>Түр</th><th>Ми көлемі</th><th>Қолын қолдануы</th><th>Қаңқа ерекшелігі</th></tr>
+          ${['Australopithecus','Homo habilis','Homo erectus','Homo sapiens'].map(t => `<tr><td>${t}</td><td><textarea class='task-answer' data-field='brain_${t}' rows='2'></textarea></td>
+          <td><textarea class='task-answer' data-field='hand_${t}' rows='2'></textarea></td><td><textarea class='task-answer' data-field='skeleton_${t}' rows='2'></textarea></td></tr>`).join('')}</table>
+          <p><strong>Неандертальдықтардың жойылуының 3 себебі:</strong><br><textarea class='task-answer' data-field='neander_extinct' rows='3'></textarea></p>` },
+        { id:7, name:"Орталық жүйке жүйесі", code:"10.1.7.3", lab:"<a href='https://human.biodigital.com/' target='_blank'>BioDigital Human</a>",
+          content:`<p><strong>Ми бөлімдерін сәйкестендіру:</strong><br><textarea class='task-answer' data-field='brain_parts' rows='4'></textarea></p>
+          <p><strong>Нейрон құрылысы, жұлын қызметтері:</strong><br><textarea class='task-answer' data-field='neuron_spinal' rows='4'></textarea></p>` },
+        { id:8, name:"Холинергиялық синапс", code:"10.1.7.4", lab:"",
+          content:`<p><strong>Синапстағы процестер реті (A,B,C,D):</strong><br><textarea class='task-answer' data-field='synapse_order' rows='3'></textarea></p>
+          <p><strong>Ацетилхолинэстераза тежелсе не болады?</strong><br><textarea class='task-answer' data-field='synapse_case' rows='3'></textarea></p>` },
+        { id:9, name:"Механорецепторлар", code:"10.1.7.5", lab:"",
+          content:`<p><strong>Механикалық тітіркеніс → импульс реті:</strong><br><textarea class='task-answer' data-field='mechano_order' rows='3'></textarea></p>
+          <p><strong>Паччини денешігі неге бейімделеді?</strong><br><textarea class='task-answer' data-field='paccinian' rows='3'></textarea></p>` },
+        { id:10, name:"Бұлшықет ұлпасы және жиырылу", code:"10.1.6.1", lab:"<a href='https://humanbiology.pressbooks.tru.ca/chapter/14-4-muscle-contraction/' target='_blank'>Muscle Contraction</a>",
+          content:`<p><strong>Актин, миозин, саркомер қызметтері:</strong><br><textarea class='task-answer' data-field='muscle_proteins' rows='3'></textarea></p>
+          <p><strong>АТФ таусылғанда (ригор мортис):</strong><br><textarea class='task-answer' data-field='rigor' rows='3'></textarea></p>` },
+        { id:11, name:"Жылдам/баяу бұлшықет талшықтары", code:"10.1.6.2", lab:"",
+          content:`<p><strong>Спринтер vs марафоншы – талшық түрлері:</strong><br><textarea class='task-answer' data-field='muscle_fibers' rows='4'></textarea></p>` },
+        { id:12, name:"Селекция әдістері", code:"10.2.5.1", lab:"<a href='https://phet.colorado.edu/sims/html/natural-selection/latest/natural-selection_all.html' target='_blank'>PhET Natural Selection</a>",
+          content:`<p><strong>Фермер мәселесіне 3 технология:</strong><br><textarea class='task-answer' data-field='farming_tech' rows='3'></textarea></p>
+          <p><strong>Дрондар, тамшылатып суару, сенсорларды талдау:</strong><br><textarea class='task-answer' data-field='tech_analysis' rows='5'></textarea></p>` },
+        { id:13, name:"Тұқымқуалайтын өзгергіштік және эволюция", code:"10.2.6.1", lab:"",
+          content:`<p><strong>Климат суыған кезде қандай даралар тірі қалады?</strong><br><textarea class='task-answer' data-field='climate_case' rows='3'></textarea></p>
+          <p><strong>Тұқымқуалайтын өзгергіштіктің 2 себебі, табиғи сұрыпталу мысалдары:</strong><br><textarea class='task-answer' data-field='herit_examples' rows='5'></textarea></p>` },
+        { id:14, name:"Эволюция дәлелдемелері", code:"10.2.6.2", lab:"<a href='https://www.biointeractive.org/classroom-resources/origin-flight-what-use-half-wing' target='_blank'>HHMI Evolution</a>",
+          content:`<p><strong>Биохимиялық, молекулалық, анатомиялық дәлелдер кестесі:</strong><br><textarea class='task-answer' data-field='evidence_table' rows='6'></textarea></p>
+          <p><strong>ДНҚ ұқсастығы 95% және сыртқы ұқсастық мысалы:</strong><br><textarea class='task-answer' data-field='dna_case' rows='4'></textarea></p>` },
+        { id:15, name:"Жүрек автоматиясы (ЭКГ)", code:"10.4.4.2", lab:"<a href='https://human.biodigital.com/results/modules?query=the%20heart' target='_blank'>BioDigital Heart</a>",
+          content:`<p><strong>P, QRS, T тістерін сәйкестендіру:</strong><br><textarea class='task-answer' data-field='ecg_waves' rows='3'></textarea></p>
+          <p><strong>QRS өзгерсе қандай мәселе? ЭКГ тиімділігіне 2 дәлел:</strong><br><textarea class='task-answer' data-field='ecg_case' rows='4'></textarea></p>` }
+    ];
+
+    let currentTopicId = null;
+
+    function renderTopics() {
+        const grid = document.getElementById('topicsGrid');
+        grid.innerHTML = '';
+        topics.forEach((t, i) => {
+            const card = document.createElement('div');
+            card.className = 'topic-card';
+            card.innerHTML = `<h3>${t.name}</h3><div class="code">ОМ: ${t.code}</div><p><i class="fas fa-tasks"></i> Тапсырмалар</p>`;
+            card.onclick = () => openTopic(i);
+            grid.appendChild(card);
+        });
+    }
+
+    function openTopic(id) {
+        currentTopicId = id;
+        const topic = topics[id];
+        document.getElementById('dashboard').classList.remove('active-page');
+        document.getElementById('topicWorkArea').style.display = 'block';
+        document.getElementById('topicContent').innerHTML = `
+            <h2>${topic.name} (${topic.code})</h2>
+            <div class="virtual-lab">🧪 Виртуалды зертхана: ${topic.lab || 'Қосымша ресурстар сабақта'}</div>
+            ${topic.content}
+            <p style="margin-top:1rem;"><strong>✏️ Төмендегі жұмыс дәптеріне қосымша жазбалар жазыңыз.</strong></p>
+        `;
+        // Барлық сақталған мәліметтерді жүктеу
+        const saved = localStorage.getItem(`notebook_full_${id}`);
+        if(saved) {
+            try {
+                const data = JSON.parse(saved);
+                document.querySelectorAll('.task-answer').forEach(el => {
+                    const field = el.getAttribute('data-field');
+                    if(data[field]) el.value = data[field];
+                });
+                document.getElementById('notebookText').value = data.generalNotes || '';
+            } catch(e) {}
+        } else {
+            document.querySelectorAll('.task-answer').forEach(el => el.value = '');
+            document.getElementById('notebookText').value = '';
+        }
+    }
+
+    function saveCurrentTopic() {
+        if(currentTopicId === null) return;
+        const data = { generalNotes: document.getElementById('notebookText').value };
+        document.querySelectorAll('.task-answer').forEach(el => {
+            const field = el.getAttribute('data-field');
+            if(field) data[field] = el.value;
+        });
+        localStorage.setItem(`notebook_full_${currentTopicId}`, JSON.stringify(data));
+        document.getElementById('saveStatus').innerHTML = '✅ Сақталды!';
+        setTimeout(() => document.getElementById('saveStatus').innerHTML = '', 2000);
+    }
+
+    function loadCurrentTopic() {
+        if(currentTopicId === null) return;
+        const saved = localStorage.getItem(`notebook_full_${currentTopicId}`);
+        if(saved) {
+            const data = JSON.parse(saved);
+            document.querySelectorAll('.task-answer').forEach(el => {
+                const field = el.getAttribute('data-field');
+                if(data[field]) el.value = data[field];
+            });
+            document.getElementById('notebookText').value = data.generalNotes || '';
+            document.getElementById('saveStatus').innerHTML = '📁 Жүктелді';
+        } else {
+            document.getElementById('saveStatus').innerHTML = '❌ Сақталған жоқ';
+        }
+    }
+
+    function clearCurrentTopic() {
+        if(currentTopicId !== null && confirm('Өшіру?')) {
+            localStorage.removeItem(`notebook_full_${currentTopicId}`);
+            document.querySelectorAll('.task-answer').forEach(el => el.value = '');
+            document.getElementById('notebookText').value = '';
+            document.getElementById('saveStatus').innerHTML = '🗑️ Тазартылды';
+        }
+    }
+
+    function renderAllNotes() {
+        const container = document.getElementById('allNotesContainer');
+        let html = '';
+        for(let i=0; i<topics.length; i++) {
+            const saved = localStorage.getItem(`notebook_full_${i}`);
+            if(saved) {
+                html += `<div style="border-bottom:1px solid #c8e6c9; margin-bottom:1rem; padding-bottom:1rem;"><h3>${topics[i].name}</h3><pre style="white-space:pre-wrap; background:#f5faf2; padding:1rem; border-radius:16px;">${saved}</pre></div>`;
+            }
+        }
+        if(!html) html = '<p>Әлі жауап жоқ</p>';
+        container.innerHTML = html;
+    }
+
+    function exportAll() {
+        let content = "=== BioMaster Pro | Барлық жауаптар ===\n\n";
+        for(let i=0; i<topics.length; i++) {
+            const saved = localStorage.getItem(`notebook_full_${i}`);
+            if(saved) content += `【${topics[i].name}】\n${saved}\n\n--------------------------------\n\n`;
+        }
+        const blob = new Blob([content], {type:"text/plain"});
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = "biomaster_all_notes.txt";
+        a.click();
+    }
+
+    function clearAll() {
+        if(confirm('Барлық жауаптарды өшіру?')) {
+            for(let i=0; i<topics.length; i++) localStorage.removeItem(`notebook_full_${i}`);
+            renderAllNotes();
+            alert('Өшірілді');
+        }
+    }
+
+    function renderResources() {
+        const grid = document.getElementById('resourcesGrid');
+        const labs = [
+            {name:"Labster Cancer", link:"https://www.labster.com/simulations/mass-spectrometry"},
+            {name:"HHMI BioInteractive", link:"https://www.biointeractive.org/"},
+            {name:"PhET симуляциялар", link:"https://phet.colorado.edu/"},
+            {name:"Learn.Genetics Utah", link:"https://learn.genetics.utah.edu/"},
+            {name:"BioDigital Human", link:"https://human.biodigital.com/"},
+            {name:"GetBodySmart", link:"https://www.getbodysmart.com/"},
+            {name:"Smithsonian 3D", link:"https://3d.si.edu/"}
+        ];
+        grid.innerHTML = labs.map(l => `<div class="topic-card"><h3>${l.name}</h3><a href="${l.link}" target="_blank">🔗 Кіру</a></div>`).join('');
+    }
+
+    document.getElementById('saveTopicNotes').addEventListener('click', saveCurrentTopic);
+    document.getElementById('loadTopicNotes').addEventListener('click', loadCurrentTopic);
+    document.getElementById('clearTopicNotes').addEventListener('click', clearCurrentTopic);
+    document.getElementById('exportAllNotes').addEventListener('click', exportAll);
+    document.getElementById('clearAllNotes').addEventListener('click', clearAll);
+    document.getElementById('backBtn').addEventListener('click', () => {
+        document.getElementById('topicWorkArea').style.display = 'none';
+        document.getElementById('dashboard').classList.add('active-page');
+        document.getElementById('notebook').classList.remove('active-page');
+        document.getElementById('rubric').classList.remove('active-page');
+        document.getElementById('resources').classList.remove('active-page');
+    });
+    document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const p = btn.getAttribute('data-page');
+            document.getElementById('topicWorkArea').style.display = 'none';
+            document.getElementById('dashboard').classList.remove('active-page');
+            document.getElementById('notebook').classList.remove('active-page');
+            document.getElementById('rubric').classList.remove('active-page');
+            document.getElementById('resources').classList.remove('active-page');
+            if(p === 'dashboard') document.getElementById('dashboard').classList.add('active-page');
+            else if(p === 'notebook') { document.getElementById('notebook').classList.add('active-page'); renderAllNotes(); }
+            else if(p === 'rubric') document.getElementById('rubric').classList.add('active-page');
+            else if(p === 'resources') { document.getElementById('resources').classList.add('active-page'); renderResources(); }
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        });
+    });
+    renderTopics();
+    renderResources();
+</script>
+</body>
+</html>
